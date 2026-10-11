@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LHX in the Browser</title>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
+<style>
+  :root { --bg: #111317; --panel: #1b1e24; --text: #d8dde6; --muted: #8a93a3; --accent: #e3b341; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.4 -apple-system, system-ui, sans-serif; }
+  main { max-width: 1280px; margin: 0 auto; padding: 16px; }
+  #gpu { width: 100%; height: 100%; display: block; image-rendering: auto; }
+  h1 { font-size: 18px; margin: 0 0 12px; font-weight: 600; }
+  .screen { position: relative; width: 100%; aspect-ratio: 4 / 3; background: #000; border-radius: 6px; overflow: hidden; outline: none; }
+  .screen:focus { box-shadow: 0 0 0 2px var(--accent); }
+  canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+  pre#text { position: absolute; inset: 0; margin: 0; padding: 12px; color: #c8c8c8; font: 13px/1.25 ui-monospace, Menlo, monospace; white-space: pre; display: none; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 10px 0; color: var(--muted); }
+  .bar button { background: var(--panel); color: var(--text); border: 1px solid #2c313a; border-radius: 4px; padding: 5px 10px; font: inherit; cursor: pointer; }
+  .bar button:hover { border-color: var(--accent); }
+  .bar label { display: flex; gap: 6px; align-items: center; }
+  #status { margin-left: auto; font-variant-numeric: tabular-nums; }
+  details { background: var(--panel); border-radius: 6px; padding: 8px 12px; }
+  summary { cursor: pointer; color: var(--muted); }
+  table { border-collapse: collapse; margin-top: 8px; }
+  td { padding: 2px 14px 2px 0; vertical-align: top; }
+  td:first-child { color: var(--accent); white-space: nowrap; }
+  #loader { padding: 24px; }
+  #loader p { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>LHX: Attack Chopper — original game logic, GPU 3D</h1>
+  <div id="loader" hidden>
+    <p>Choose the folder that contains <code>LHX.EXE</code> and <code>LHX0.LIB</code>…<code>LHX4.LIB</code>. The files stay in this browser.</p>
+    <input type="file" id="folder" webkitdirectory multiple>
+  </div>
+  <div class="screen" id="screen" tabindex="0">
+    <canvas id="gpu"></canvas>
+    <pre id="text"></pre>
+  </div>
+  <div class="bar">
+    <button id="pause">Pause</button>
+    <button id="sound">Sound: off</button>
+    <label>3D <select id="renderer"><option value="accurate" selected>GPU, accurate</option><option value="enhanced">GPU, enhanced (photo sky)</option><option value="game">game's own (320 × 200)</option></select></label>
+    <label>Speed <input type="range" id="speed" min="1" max="20" step="1" value="6"> <span id="speedText">6 MIPS</span></label>
+    <span id="status">loading…</span>
+  </div>
+  <details>
+    <summary>Raw VGA output (what the emulated PC shows; the 3D window holds the key colour while the GPU draws)</summary>
+    <canvas id="raw" width="320" height="200" style="width: 640px; max-width: 100%; height: auto; aspect-ratio: 4 / 3; margin-top: 8px"></canvas>
+  </details>
+  <details>
+    <summary>Keys</summary>
+    <table>
+      <tr><td>Keypad 1–9, arrows</td><td>move the flight stick (the box on the HUD); 5 or / re-centres it</td></tr>
+      <tr><td>Space / Enter</td><td>fire selected weapon / select next target</td></tr>
+      <tr><td>[ ]</td><td>select weapon</td></tr>
+      <tr><td>F1–F10</td><td>views (cockpit, sides, chase, satellite…)</td></tr>
+      <tr><td>Ctrl + arrows</td><td>look around</td></tr>
+      <tr><td>Ctrl-P / Ctrl-Q</td><td>pause / abort mission</td></tr>
+    </table>
+  </details>
+</main>
+<script type="module" src="web/main.js"></script>
+</body>
+</html>

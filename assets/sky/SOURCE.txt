@@ -1,0 +1,4 @@
+Photo skies for Enhanced mode, from Poly Haven (CC0, https://polyhaven.com/license):
+- day.jpg: "Kloofendal 48d Partly Cloudy (Pure Sky)" by Greg Zaal and Jarod Guest, https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky
+- night.jpg: "Qwantani Night (Pure Sky)", https://polyhaven.com/a/qwantani_night_puresky
+Both are the tonemapped 8K JPGs, resized to 4096 x 2048 (equirectangular).

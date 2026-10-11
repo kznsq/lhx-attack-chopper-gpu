@@ -1,0 +1,9 @@
+# the game's own files are not distributed: link or pick your own copy
+game
+# terrain tile download cache (rebuildable with tools/terrain.py) and the full model kit downloads
+assets/terrain/tiles/
+assets/models/zips/
+# local editor and tool settings
+.claude/
+.DS_Store
+__pycache__/
